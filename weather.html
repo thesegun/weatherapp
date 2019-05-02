@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Weather APP</title>
+</head>
+<body>
+
+	<h1>Weather APP</h1>
+
+<p>Input your city name in the box below to get current weather condition</p>
+
+
+	<input id="name" type="text" name="cityName" placeholder="City Name" /> 
+	<button id="button" onclick="weatherData()">Search</button>
+
+
+
+
+<p>Weather <p id="weather"></p> </p>
+<p>Weather Description <p id="weatherDesc"></p> </p>
+<p>Temperature <p id="temp"></p> </p>
+<p>Humidity <p id="humidity"></p> </p>
+
+
+<script type="text/javascript">
+
+	let searchInput = document.getElementById('name')
+
+		searchInput.addEventListener("keyup", enterPressed)
+
+		function enterPressed(event){
+			if (event.key === "Enter") {
+				weatherData();
+			}
+		}
+
+
+function weatherData() {
+	fetch('https://api.openweathermap.org/data/2.5/weather?q=' + searchInput.value + '&appid=bd4ae7859d1161cfa13ccc8346b43c73')
+	.then(function(response){
+	      return response.json()
+	  })
+	.then(function(data){
+		console.log(data)
+		reloadPage(data);
+		
+		})
+	.catch(function() {
+
+	});
+	}
+
+	function reloadPage(data){
+	document.getElementById('weather').innerHTML = data.weather[0].main;
+	document.getElementById('weatherDesc').innerHTML = data.weather[0].description;
+	document.getElementById('temp').innerHTML = data.main.temp;
+	document.getElementById('humidity').innerHTML = data.main.humidity;
+}
+</script>
+</body>
+</html>

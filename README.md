@@ -1,0 +1,1 @@
+Weather app made from Openweathermap api which shows weather conditions, Runs on node server
